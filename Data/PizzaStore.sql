@@ -18,6 +18,30 @@ USE `pizzastore`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `cart`
+--
+
+DROP TABLE IF EXISTS `cart`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cart` (
+  `CARTID` int(11) NOT NULL AUTO_INCREMENT,
+  `USERID` varchar(45) NOT NULL,
+  `ITEMID` int(11) NOT NULL,
+  PRIMARY KEY (`CARTID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cart`
+--
+
+LOCK TABLES `cart` WRITE;
+/*!40000 ALTER TABLE `cart` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cart` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `item`
 --
 
@@ -98,6 +122,34 @@ LOCK TABLES `topping_options` WRITE;
 INSERT INTO `topping_options` VALUES (1,'Italian',50,NULL,1),(2,'Honey Bread',35,NULL,1),(3,'Whole Wheat',23,NULL,1),(4,'Whole Wheat',35,NULL,2),(5,'Normal',25,NULL,2),(6,'Light Cheese',20,NULL,3),(7,'Normal Cheese',30,NULL,3),(8,'Extra Cheese',50,NULL,3),(9,'Green Pepper',25,NULL,3),(10,'Yellow Pepper',35,NULL,4),(11,'Orange Pepper',15,NULL,4),(12,'Sliced',20,NULL,5),(13,'Puree',10,NULL,5),(14,'Hot Sauce',25,NULL,6),(15,'Light Sauce',15,NULL,6),(16,'Well Baked',15,NULL,7),(17,'Light Baked',10,NULL,7);
 /*!40000 ALTER TABLE `topping_options` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user` (
+  `EMAILID` varchar(45) NOT NULL,
+  `PASSWORD` varchar(45) NOT NULL,
+  `FIRST_NAME` varchar(45) NOT NULL,
+  `LAST_NAME` varchar(45) NOT NULL,
+  `PHONE` varchar(10) NOT NULL,
+  `ADDRESS` varchar(45) NOT NULL,
+  PRIMARY KEY (`EMAILID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES ('bestrajesh@gmail.com','raj123','Rajesh','Kumar','9467505544','Jind');
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -108,4 +160,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-10-31 22:36:09
+-- Dump completed on 2014-11-04 20:29:37

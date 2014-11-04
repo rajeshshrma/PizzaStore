@@ -5,16 +5,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>Home Page - Online Pizza Store</title>
+<title>Login - Online Pizza Store</title>
 </head>
 <body>
 	<h3 align="center">Online Pizza Store</h3>
 
-	<div style="color: teal; font-size: 30px">Home Page</div>
+	<div style="color: teal; font-size: 30px">Login Form</div>
 
 	<div style="margin: 0 auto; width: 75%; text-align: center;">
 
-		<form:form modelAttribute="login" method="POST"
+		<form:form commandName="login" method="POST"
 			action="authenticate">
 			<table>
 				<tr>
