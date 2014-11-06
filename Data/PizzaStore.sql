@@ -25,10 +25,9 @@ DROP TABLE IF EXISTS `cart`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cart` (
-  `CARTID` int(11) NOT NULL AUTO_INCREMENT,
-  `USERID` varchar(45) NOT NULL,
-  `ITEMID` int(11) NOT NULL,
-  PRIMARY KEY (`CARTID`)
+  `sessionid` varchar(100) NOT NULL,
+  `itemid` int(11) NOT NULL,
+  PRIMARY KEY (`sessionid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -51,7 +50,7 @@ DROP TABLE IF EXISTS `item`;
 CREATE TABLE `item` (
   `ITEMID` int(11) NOT NULL AUTO_INCREMENT,
   `NAME` varchar(45) NOT NULL,
-  `PRICE` decimal(10,0) NOT NULL,
+  `PRICE` int(11) NOT NULL,
   `DESCRIPTION` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`ITEMID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
@@ -105,7 +104,7 @@ DROP TABLE IF EXISTS `topping_options`;
 CREATE TABLE `topping_options` (
   `OPTIONID` int(11) NOT NULL AUTO_INCREMENT,
   `NAME` varchar(45) NOT NULL,
-  `PRICE` decimal(10,0) NOT NULL,
+  `PRICE` int(11) NOT NULL,
   `DESCRIPTION` varchar(200) DEFAULT NULL,
   `TOPPINGID` int(11) DEFAULT NULL,
   PRIMARY KEY (`OPTIONID`),
@@ -160,4 +159,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-04 20:29:37
+-- Dump completed on 2014-11-06 19:25:22

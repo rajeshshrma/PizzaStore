@@ -36,39 +36,25 @@ public class DataController {
 	@Autowired
 	IDataService dataService;
 
-	/*
-	 * @RequestMapping("/") public ModelAndView getHomePage(Model model) {
-	 * model.addAttribute("login", new User()); return new
-	 * ModelAndView("loginform"); }
-	 */
-	@RequestMapping(value = "/")
+	@RequestMapping(value = StoreRestURIConstants.GET_HOME_PAGE)
 	public ModelAndView getHomePage(
 			Model model,
 			HttpSession session,
 			@CookieValue(value = "hitCounter", defaultValue = "0") Long hitCounter,
 			HttpServletResponse response) {
-
 		// increment hit counter
 		hitCounter++;
-
 		// create cookie and set it in response
 		Cookie cookie = new Cookie("hitCounter", hitCounter.toString());
 		response.addCookie(cookie);
-
 		ModelAndView modelView = new ModelAndView("user_home");
-
 		String sessionid = session.getId();
-		String timeout = String.valueOf(session.getMaxInactiveInterval() / 60)
-				+ " Minutes";
+
 		String createtime = new Date(session.getCreationTime()).toString();
-
 		modelView.addObject("sessionid", sessionid);
-		modelView.addObject("timeout", timeout);
 		modelView.addObject("createtime", createtime);
-
 		List<Item> items = dataService.findAllItems();
 		model.addAttribute("items", items);
-
 		return modelView;
 	}
 
@@ -76,29 +62,33 @@ public class DataController {
 	@RequestMapping(value = StoreRestURIConstants.ADD_ITEM_TO_CART, method = RequestMethod.POST)
 	public @ResponseBody String addToCart(@PathVariable("itemid") int itemid,
 			HttpServletRequest request) {
-
 		List<Cart> userCart = null;
-		
-		if (request.getSession().getAttribute("usercart") == null) {
+		if (request.getSession().getAttribute("itemCart") == null) {
 			userCart = new ArrayList<Cart>();
 		} else {
-			userCart = (List<Cart>) request.getSession().getAttribute("usercart");
+			userCart = (List<Cart>) request.getSession().getAttribute(
+					"itemCart");
 		}
 
 		Item item = dataService.findItemByID(itemid);
-
 		Cart cart = new Cart(item, 1);
 		userCart.add(cart);
-		
-		request.getSession().setAttribute("usercart", userCart);
-
+		request.getSession().setAttribute("itemCart", userCart);
 		Gson gson = new Gson();
 		JsonElement element = gson.toJsonTree(userCart,
 				new TypeToken<List<Cart>>() {
 				}.getType());
 		JsonArray jsonArray = element.getAsJsonArray();
-
 		return jsonArray.toString();
+	}
+
+	@RequestMapping(value = StoreRestURIConstants.GET_TOPPINGS_LIST)
+	public ModelAndView getToppingsPage(Model model,
+			HttpServletRequest request, HttpServletResponse response) {
+
+		ModelAndView modelView = new ModelAndView("item_toppings");
+
+		return modelView;
 	}
 
 	@RequestMapping(value = "addtoppings", method = RequestMethod.GET)
@@ -108,13 +98,4 @@ public class DataController {
 		return new ModelAndView("result");
 	}
 
-	/*
-	 * @RequestMapping(value = "authenticate", method = RequestMethod.GET)
-	 * public ModelAndView authenticateUser(
-	 * 
-	 * @ModelAttribute("login") UserLoginDetail user) { //
-	 * dataService.insertRow(employee); System.out.println(user.getEmailid());
-	 * System.out.println(user.getPassword()); return new
-	 * ModelAndView("redirect:result"); }
-	 */
 }
