@@ -7,7 +7,6 @@ import javax.transaction.Transactional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 import org.hibernate.Query;
 
@@ -27,10 +26,17 @@ public class DataDaoImpl implements IDataDao {
 		@SuppressWarnings("unchecked")
 		List<Item> items = session.createQuery("from Item").list();
 
-		session.close();
-
 		return items;
 
+	}
+
+	public Item findItemByID(int itemid) {
+		
+
+		Session session = sessionFactory.openSession();
+		Item item = (Item) session.load(Item.class, itemid);
+
+		return item;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -52,7 +58,6 @@ public class DataDaoImpl implements IDataDao {
 			System.out.println("User Login Detail Found.................");
 		}
 
-		session.close();
 		return userFound;
 
 	}

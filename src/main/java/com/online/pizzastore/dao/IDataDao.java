@@ -9,5 +9,6 @@ public interface IDataDao {
 
 	public boolean authenticateUser(User user)  ;
 	public List<Item> findAllItems();
+	public Item findItemByID(int itemid);
 
 }

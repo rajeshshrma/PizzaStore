@@ -1,46 +1,41 @@
 package com.online.pizzastore.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-@Entity
 public class Cart {
-
-	@Id
-	@GeneratedValue
-	private int userid;
-
-	@Column(name = "ITEMID")
+	private int itemid;
 	private String name;
-
-	/**
-	 * @return the userid
-	 */
-	public int getUserid() {
-		return userid;
+	private int quantity;
+	private int price;
+	
+	public Cart(int itemid, String name,int quantity, int price)
+	{
+		this.itemid=itemid;
+		this.name=name;
+		this.quantity=quantity;
+		this.price=price *this.quantity;
+	}
+	
+	public Cart(Item item,int quantity)
+	{
+		this.itemid=item.getItemid();
+		this.name=item.getName();
+		this.quantity=quantity;
+		this.price=item.getPrice()* this.quantity;
 	}
 
-	/**
-	 * @param userid the userid to set
-	 */
-	public void setUserid(int userid) {
-		this.userid = userid;
+	public int getItemid() {
+		return itemid;
 	}
 
-	/**
-	 * @return the name
-	 */
 	public String getName() {
 		return name;
 	}
 
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public int getPrice() {
+		return price;
 	}
 
 }

@@ -21,4 +21,8 @@ public class DataServiceImpl implements IDataService {
 	public boolean authenticateUser(User user) {
 		return dataDao.authenticateUser(user);
 	}
+
+	public Item findItemByID(int itemid) {
+		return dataDao.findItemByID(itemid);
+	}
 }

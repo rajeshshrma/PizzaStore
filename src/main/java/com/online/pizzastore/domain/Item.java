@@ -1,7 +1,5 @@
 package com.online.pizzastore.domain;
 
-import java.math.BigDecimal;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,20 +16,20 @@ public class Item {
 	private String name;
 
 	@Column(name = "PRICE")
-	private BigDecimal price;
-	
+	private int price;
+
 	@Column(name = "DESCRIPTION")
 	private String description;
 
 	public static Item getInstance(int itemid, String name, String description,
-			BigDecimal price) {
+			int price) {
 
 		Item item = new Item();
 		item.setItemid(itemid);
 		item.setName(name);
 		item.setPrice(price);
 		item.setDescription(description);
-		
+
 		return item;
 	}
 
@@ -83,7 +81,7 @@ public class Item {
 	/**
 	 * @return the price
 	 */
-	public BigDecimal getPrice() {
+	public int getPrice() {
 		return price;
 	}
 
@@ -91,7 +89,7 @@ public class Item {
 	 * @param price
 	 *            the price to set
 	 */
-	public void setPrice(BigDecimal price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
 
