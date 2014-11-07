@@ -6,11 +6,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Item {
+public class Product {
 
 	@Id
 	@GeneratedValue
-	private int itemid;
+	private int productid;
 
 	@Column(name = "NAME")
 	private String name;
@@ -21,31 +21,31 @@ public class Item {
 	@Column(name = "DESCRIPTION")
 	private String description;
 
-	public static Item getInstance(int itemid, String name, String description,
+	public static Product getInstance(int productid, String name, String description,
 			int price) {
 
-		Item item = new Item();
-		item.setItemid(itemid);
-		item.setName(name);
-		item.setPrice(price);
-		item.setDescription(description);
+		Product product = new Product();
+		product.setProductid(productid);
+		product.setName(name);
+		product.setPrice(price);
+		product.setDescription(description);
 
-		return item;
+		return product;
 	}
 
 	/**
 	 * @return the itemid
 	 */
-	public int getItemid() {
-		return itemid;
+	public int getProductid() {
+		return productid;
 	}
 
 	/**
 	 * @param itemid
 	 *            the itemid to set
 	 */
-	public void setItemid(int itemid) {
-		this.itemid = itemid;
+	public void setProductid(int productid) {
+		this.productid = productid;
 	}
 
 	/**

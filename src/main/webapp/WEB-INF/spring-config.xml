@@ -25,8 +25,10 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="annotatedClasses">
 			<list>
-				<value>com.online.pizzastore.domain.Item</value>
+				<value>com.online.pizzastore.domain.Product</value>
 				<value>com.online.pizzastore.domain.User</value>
+				<value>com.online.pizzastore.domain.Topping</value>
+				<value>com.online.pizzastore.domain.ToppingOptions</value>
 			</list>
 
 		</property>

@@ -41,29 +41,29 @@ LOCK TABLES `cart` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `item`
+-- Table structure for table `product`
 --
 
-DROP TABLE IF EXISTS `item`;
+DROP TABLE IF EXISTS `product`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `item` (
-  `ITEMID` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `product` (
+  `PRODUCTID` int(11) NOT NULL AUTO_INCREMENT,
   `NAME` varchar(45) NOT NULL,
   `PRICE` int(11) NOT NULL,
   `DESCRIPTION` varchar(200) DEFAULT NULL,
-  PRIMARY KEY (`ITEMID`)
+  PRIMARY KEY (`PRODUCTID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `item`
+-- Dumping data for table `product`
 --
 
-LOCK TABLES `item` WRITE;
-/*!40000 ALTER TABLE `item` DISABLE KEYS */;
-INSERT INTO `item` VALUES (1,'Pizza ',200,'a dish of Italian origin, consisting of a flat round base of dough baked with a topping of tomatoes and cheese, typically with added meat, fish, or vegetables.'),(2,'Pasta',200,'a dish originally from Italy consisting of dough made from durum wheat and water, extruded or stamped into various shapes and typically cooked in boiling water.'),(3,'Sandwich ',100,'an item of food consisting of two pieces of bread with a filling between them, eaten as a light meal.');
-/*!40000 ALTER TABLE `item` ENABLE KEYS */;
+LOCK TABLES `product` WRITE;
+/*!40000 ALTER TABLE `product` DISABLE KEYS */;
+INSERT INTO `product` VALUES (1,'Pizza ',200,'a dish of Italian origin, consisting of a flat round base of dough baked with a topping of tomatoes and cheese, typically with added meat, fish, or vegetables.'),(2,'Pasta',200,'a dish originally from Italy consisting of dough made from durum wheat and water, extruded or stamped into various shapes and typically cooked in boiling water.'),(3,'Sandwich ',100,'an item of food consisting of two pieces of bread with a filling between them, eaten as a light meal.');
+/*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -74,14 +74,14 @@ DROP TABLE IF EXISTS `topping`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `topping` (
-  `TOPPINGID` int(11) NOT NULL,
+  `TOPPINGID` int(11) NOT NULL AUTO_INCREMENT,
   `NAME` varchar(45) NOT NULL,
-  `ITEMID` int(11) DEFAULT NULL,
+  `PRODUCTID` int(11) DEFAULT NULL,
   `DESCRIPTION` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`TOPPINGID`),
-  KEY `ITEMID_idx` (`ITEMID`),
-  CONSTRAINT `ITEMID` FOREIGN KEY (`ITEMID`) REFERENCES `item` (`ITEMID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `ITEMID_idx` (`PRODUCTID`),
+  CONSTRAINT `PRODUCTID` FOREIGN KEY (`PRODUCTID`) REFERENCES `product` (`PRODUCTID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -108,7 +108,8 @@ CREATE TABLE `topping_options` (
   `DESCRIPTION` varchar(200) DEFAULT NULL,
   `TOPPINGID` int(11) DEFAULT NULL,
   PRIMARY KEY (`OPTIONID`),
-  KEY `TOPPINGID_idx` (`TOPPINGID`)
+  KEY `TOPPINGID_idx` (`TOPPINGID`),
+  CONSTRAINT `TOPPINGID` FOREIGN KEY (`TOPPINGID`) REFERENCES `topping` (`TOPPINGID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -118,7 +119,7 @@ CREATE TABLE `topping_options` (
 
 LOCK TABLES `topping_options` WRITE;
 /*!40000 ALTER TABLE `topping_options` DISABLE KEYS */;
-INSERT INTO `topping_options` VALUES (1,'Italian',50,NULL,1),(2,'Honey Bread',35,NULL,1),(3,'Whole Wheat',23,NULL,1),(4,'Whole Wheat',35,NULL,2),(5,'Normal',25,NULL,2),(6,'Light Cheese',20,NULL,3),(7,'Normal Cheese',30,NULL,3),(8,'Extra Cheese',50,NULL,3),(9,'Green Pepper',25,NULL,3),(10,'Yellow Pepper',35,NULL,4),(11,'Orange Pepper',15,NULL,4),(12,'Sliced',20,NULL,5),(13,'Puree',10,NULL,5),(14,'Hot Sauce',25,NULL,6),(15,'Light Sauce',15,NULL,6),(16,'Well Baked',15,NULL,7),(17,'Light Baked',10,NULL,7);
+INSERT INTO `topping_options` VALUES (1,'Italian',50,NULL,1),(2,'Honey Bread',35,NULL,1),(3,'Whole Wheat',23,NULL,1),(4,'Whole Wheat',35,NULL,2),(5,'Normal',25,NULL,2),(6,'Light Cheese',20,NULL,3),(7,'Normal Cheese',30,NULL,3),(8,'Extra Cheese',50,NULL,3),(9,'Green Pepper',25,NULL,4),(10,'Yellow Pepper',35,NULL,4),(11,'Orange Pepper',15,NULL,4),(12,'Sliced',20,NULL,5),(13,'Puree',10,NULL,5),(14,'Hot Sauce',25,NULL,6),(15,'Light Sauce',15,NULL,6),(16,'Well Baked',15,NULL,7),(17,'Light Baked',10,NULL,7);
 /*!40000 ALTER TABLE `topping_options` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -159,4 +160,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-06 19:25:22
+-- Dump completed on 2014-11-07 21:09:54

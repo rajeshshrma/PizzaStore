@@ -10,7 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.hibernate.Query;
 
-import com.online.pizzastore.domain.Item;
+import com.online.pizzastore.domain.Product;
+import com.online.pizzastore.domain.Topping;
 import com.online.pizzastore.domain.User;
 
 @Repository
@@ -20,23 +21,33 @@ public class DataDaoImpl implements IDataDao {
 	private SessionFactory sessionFactory;
 
 	@Transactional
-	public List<Item> findAllItems() {
+	public List<Product> findAllProducts() {
 		Session session = sessionFactory.openSession();
 
 		@SuppressWarnings("unchecked")
-		List<Item> items = session.createQuery("from Item").list();
+		List<Product> products = session.createQuery("from Product").list();
 
-		return items;
+		return products;
 
 	}
 
-	public Item findItemByID(int itemid) {
-		
+	public Product findProductByID(int productid) {
 
 		Session session = sessionFactory.openSession();
-		Item item = (Item) session.load(Item.class, itemid);
+		Product product = (Product) session.load(Product.class, productid);
 
-		return item;
+		return product;
+	}
+
+	public List<Topping> findToppingsByProductID(int productid) {
+
+		Session session = sessionFactory.openSession();
+
+		@SuppressWarnings("unchecked")
+		List<Topping> toppings = session.createQuery(
+				"from Topping where productid=" + productid).list();
+
+		return toppings;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -61,5 +72,4 @@ public class DataDaoImpl implements IDataDao {
 		return userFound;
 
 	}
-
 }

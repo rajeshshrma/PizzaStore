@@ -1,29 +1,29 @@
 package com.online.pizzastore.domain;
 
 public class Cart {
-	private int itemid;
+	private int productid;
 	private String name;
 	private int quantity;
 	private int price;
 	
-	public Cart(int itemid, String name,int quantity, int price)
+	public Cart(int productid, String name,int quantity, int price)
 	{
-		this.itemid=itemid;
+		this.productid=productid;
 		this.name=name;
 		this.quantity=quantity;
 		this.price=price *this.quantity;
 	}
 	
-	public Cart(Item item,int quantity)
+	public Cart(Product product,int quantity)
 	{
-		this.itemid=item.getItemid();
-		this.name=item.getName();
+		this.productid=product.getProductid();
+		this.name=product.getName();
 		this.quantity=quantity;
-		this.price=item.getPrice()* this.quantity;
+		this.price=product.getPrice()* this.quantity;
 	}
 
-	public int getItemid() {
-		return itemid;
+	public int getProductid() {
+		return productid;
 	}
 
 	public String getName() {
