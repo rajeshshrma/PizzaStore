@@ -21,7 +21,7 @@ public class Product implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 6261093867083265065L;
-
+	//this is new comment.
 	@Id
 	@GeneratedValue
 	private int productId;
