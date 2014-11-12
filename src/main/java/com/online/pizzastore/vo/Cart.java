@@ -8,6 +8,7 @@ public class Cart {
 	
 	public Cart(int productid, String name,int quantity, int price)
 	{
+		//Commented by Amit Kumar Kaushik on 11/12.
 		this.productid=productid;
 		this.name=name;
 		this.quantity=quantity;
