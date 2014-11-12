@@ -36,7 +36,7 @@ public class DataController {
 	@RequestMapping(value = StoreRestURIConstants.GET_HOME_PAGE)
 	public ModelAndView getHomePage(Model model, HttpSession session,
 			HttpServletResponse response) {
-
+		//Commented by Amit
 		ModelAndView modelView = new ModelAndView("userHome");
 		List<com.online.pizzastore.vo.customer.order.Product> productOrderList = new ArrayList<com.online.pizzastore.vo.customer.order.Product>();
 
