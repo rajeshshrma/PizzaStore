@@ -1,4 +1,4 @@
-package com.online.pizzastore.domain;
+package com.online.pizzastore.vo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

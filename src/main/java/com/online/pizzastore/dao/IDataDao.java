@@ -2,9 +2,9 @@ package com.online.pizzastore.dao;
 
 import java.util.List;
 
-import com.online.pizzastore.domain.Product;
-import com.online.pizzastore.domain.Topping;
-import com.online.pizzastore.domain.User;
+import com.online.pizzastore.vo.Product;
+import com.online.pizzastore.vo.Topping;
+import com.online.pizzastore.vo.User;
 
 public interface IDataDao {
 
@@ -12,8 +12,10 @@ public interface IDataDao {
 
 	public List<Product> findAllProducts();
 
-	public Product findProductByID(int productid);
+	public Product findProductByID(int productId);
 
-	public List<Topping> findToppingsByProductID(int productid);
+	public List<Topping> findToppingsByProductID(int productId);
+	
+	public Topping findToppingByID(int toppingId);
 
 }

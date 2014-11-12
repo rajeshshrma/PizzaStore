@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.online.pizzastore.domain.Product;
-import com.online.pizzastore.domain.Topping;
-import com.online.pizzastore.domain.User;
 import com.online.pizzastore.dao.IDataDao;
+import com.online.pizzastore.vo.Product;
+import com.online.pizzastore.vo.Topping;
+import com.online.pizzastore.vo.User;
 
 public class DataServiceImpl implements IDataService {
 
@@ -22,11 +22,15 @@ public class DataServiceImpl implements IDataService {
 		return dataDao.authenticateUser(user);
 	}
 
-	public Product findProductByID(int productid) {
-		return dataDao.findProductByID(productid);
+	public Product findProductByID(int productId) {
+		return dataDao.findProductByID(productId);
 	}
 
-	public List<Topping> findToppingsByProductID(int productid) {
-		return dataDao.findToppingsByProductID(productid);
+	public List<Topping> findToppingsByProductID(int productId) {
+		return dataDao.findToppingsByProductID(productId);
+	}
+
+	public Topping findToppingByID(int toppingId) {
+		return dataDao.findToppingByID(toppingId);
 	}
 }

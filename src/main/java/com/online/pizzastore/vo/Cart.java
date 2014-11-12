@@ -1,4 +1,4 @@
-package com.online.pizzastore.domain;
+package com.online.pizzastore.vo;
 
 public class Cart {
 	private int productid;
@@ -16,7 +16,7 @@ public class Cart {
 	
 	public Cart(Product product,int quantity)
 	{
-		this.productid=product.getProductid();
+		this.productid=product.getProductId();
 		this.name=product.getName();
 		this.quantity=quantity;
 		this.price=product.getPrice()* this.quantity;

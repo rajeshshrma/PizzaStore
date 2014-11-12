@@ -1,17 +1,20 @@
-package com.online.pizzastore.domain;
+package com.online.pizzastore.vo;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "topping")
-public class Topping {
+public class Topping{
 
 	@Id
 	@GeneratedValue
@@ -21,26 +24,26 @@ public class Topping {
 	@Column(name = "NAME")
 	private String name;
 
-	@Column(name = "PRODUCTID")
-	private int productid;
-
 	@Column(name = "DESCRIPTION")
 	private String desc;
+	
+	@ManyToMany(mappedBy = "toppings")
+    private Set<Product> products = new HashSet<Product>();
 
 	@OneToMany(mappedBy = "topping")
+	@OrderBy("price")
 	private Set<ToppingOptions> toppingOptions;
 
 	public Topping() {
 
 	}
 
-	public Topping(int toppingId, String name, int productid, String desc,
+	public Topping(int toppingId, String name, String desc,
 			Set<ToppingOptions> toppingOptions) {
 		this.toppingId = toppingId;
-		this.name = name;
-		this.productid = productid;
+		this.name = name.trim();
 		this.desc = desc;
-		this.toppingOptions = toppingOptions;
+		this.toppingOptions =  toppingOptions;
 	}
 
 	public int getToppingId() {
@@ -56,17 +59,10 @@ public class Topping {
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.name = name.trim();
 	}
 
-	public int getProductid() {
-		return productid;
-	}
-
-	public void setProductid(int productid) {
-		this.productid = productid;
-	}
-
+	
 	public String getDesc() {
 		return desc;
 	}
@@ -81,6 +77,14 @@ public class Topping {
 
 	public void setToppingOptions(Set<ToppingOptions> toppingOptions) {
 		this.toppingOptions = toppingOptions;
+	}
+
+	public Set<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(Set<Product> products) {
+		this.products = products;
 	}
 
 }

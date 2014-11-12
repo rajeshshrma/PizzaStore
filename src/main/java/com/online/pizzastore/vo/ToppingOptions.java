@@ -1,4 +1,4 @@
-package com.online.pizzastore.domain;
+package com.online.pizzastore.vo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "topping_options")
-public class ToppingOptions {
+public class ToppingOptions implements Comparable<ToppingOptions>{
 
 	@Id
 	@GeneratedValue
@@ -37,7 +37,7 @@ public class ToppingOptions {
 	public ToppingOptions(int optionId, String name, int price, String desc,
 			Topping topping) {
 		this.optionId = optionId;
-		this.name = name;
+		this.name = name.trim();
 		this.price = price;
 		this.desc = desc;
 		this.topping = topping;
@@ -56,7 +56,7 @@ public class ToppingOptions {
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.name = name.trim();
 	}
 
 	public int getPrice() {
@@ -81,6 +81,10 @@ public class ToppingOptions {
 
 	public void setTopping(Topping topping) {
 		this.topping = topping;
+	}
+
+	public int compareTo(ToppingOptions objToppingOptions) {
+		return this.price - objToppingOptions.price;
 	}
 
 }

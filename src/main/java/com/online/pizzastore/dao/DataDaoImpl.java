@@ -10,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.hibernate.Query;
 
-import com.online.pizzastore.domain.Product;
-import com.online.pizzastore.domain.Topping;
-import com.online.pizzastore.domain.User;
+import com.online.pizzastore.vo.Product;
+import com.online.pizzastore.vo.Topping;
+import com.online.pizzastore.vo.User;
 
 @Repository
 public class DataDaoImpl implements IDataDao {
@@ -31,24 +31,33 @@ public class DataDaoImpl implements IDataDao {
 
 	}
 
-	public Product findProductByID(int productid) {
+	public Product findProductByID(int productId) {
 
 		Session session = sessionFactory.openSession();
-		Product product = (Product) session.load(Product.class, productid);
+		Product product = (Product) session.load(Product.class, productId);
 
 		return product;
 	}
 
-	public List<Topping> findToppingsByProductID(int productid) {
+	public List<Topping> findToppingsByProductID(int productId) {
 
 		Session session = sessionFactory.openSession();
 
 		@SuppressWarnings("unchecked")
 		List<Topping> toppings = session.createQuery(
-				"from Topping where productid=" + productid).list();
+				"from Topping where productid=" + productId).list();
 
 		return toppings;
 	}
+	
+	public Topping findToppingByID(int toppingId) {
+
+		Session session = sessionFactory.openSession();
+		Topping topping = (Topping) session.load(Topping.class, toppingId);
+
+		return topping;
+	}
+	
 
 	@SuppressWarnings("unchecked")
 	public boolean authenticateUser(User user) {
