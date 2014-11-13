@@ -36,8 +36,18 @@ public class DataController {
 	@RequestMapping(value = StoreRestURIConstants.GET_HOME_PAGE)
 	public ModelAndView getHomePage(Model model, HttpSession session,
 			HttpServletResponse response) {
+
+		ModelAndView modelView = new ModelAndView("homePage");
+		
+		return modelView;
+	}
+	
+	
+	@RequestMapping(value = StoreRestURIConstants.GET_PRODUCT_HOME_PAGE)
+	public ModelAndView getProductHomePage(Model model, HttpSession session,
+			HttpServletResponse response) {
 		//Commented by Amit
-		ModelAndView modelView = new ModelAndView("userHome");
+		ModelAndView modelView = new ModelAndView("productHome");
 		List<com.online.pizzastore.vo.customer.order.Product> productOrderList = new ArrayList<com.online.pizzastore.vo.customer.order.Product>();
 
 		session.setAttribute("productOrderList", productOrderList);
@@ -47,12 +57,13 @@ public class DataController {
 
 		return modelView;
 	}
+	
 
 	@RequestMapping(value = StoreRestURIConstants.GET_CONTINUE_HOME_PAGE)
 	public ModelAndView getContinueHomePage(Model model,
 			HttpServletRequest request, HttpServletResponse response) {
 
-		ModelAndView modelView = new ModelAndView("userHome");
+		ModelAndView modelView = new ModelAndView("productHome");
 
 		List<Product> products = dataService.findAllProducts();
 
