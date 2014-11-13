@@ -12,14 +12,14 @@
 <title>Login Form</title>
 
 
-<script src="${pageContext.request.contextPath}/resources/js/jquery-1.9.1.min.js"> </script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"> </script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/bootstrap-button.js"> </script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/application.js"> </script>
+<script src="assets/js/jquery-1.9.1.min.js"> </script>
+<script type="text/javascript" src="assets/js/bootstrap.min.js"> </script>
+<script type="text/javascript" src="assets/js/bootstrap-button.js"> </script>
+<script type="text/javascript" src="assets/js/application.js"> </script>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-responsive.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-custom.css">
+<link rel="stylesheet" href="assets/css/bootstrap.css">
+<link rel="stylesheet" href="assets/css/bootstrap-responsive.min.css">
+<link rel="stylesheet" href="assets/css/bootstrap-custom.css">
 
 
 
