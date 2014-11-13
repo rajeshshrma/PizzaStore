@@ -5,7 +5,7 @@ public class StoreRestURIConstants {
 //	public static final String DUMMY_EMP = "/rest/emp/dummy";
 //	public static final String GET_EMP = "/rest/emp/{id}";
 //	public static final String GET_ALL_EMP = "/rest/emps";
-	public static final String GET_HOME_PAGE = "/home.html";
+	public static final String GET_HOME_PAGE = "/";
 	public static final String GET_PRODUCT_HOME_PAGE = "/product/home";
 	public static final String GET_CONTINUE_HOME_PAGE = "/cart/product/add/more";
 	public static final String GET_SELECTED_PRODUCT_LIST_PAGE = "/cart/product/display/selected";
