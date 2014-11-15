@@ -21,10 +21,13 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
+import com.online.pizzastore.services.EmailService;
 import com.online.pizzastore.services.IDataService;
+import com.online.pizzastore.services.UserServices;
 import com.online.pizzastore.vo.Cart;
 import com.online.pizzastore.vo.Product;
 import com.online.pizzastore.vo.Topping;
+import com.online.pizzastore.vo.User;
 
 @Controller
 @SessionAttributes
@@ -33,20 +36,38 @@ public class DataController {
 	@Autowired
 	IDataService dataService;
 
-	@RequestMapping(value = StoreRestURIConstants.GET_HOME_PAGE)
+	@RequestMapping(value = StoreRestURIConstants.GET_INDEX_PAGE)
 	public ModelAndView getHomePage(Model model, HttpSession session,
 			HttpServletResponse response) {
 
-		ModelAndView modelView = new ModelAndView("homePage");
-		
+		ModelAndView modelView = new ModelAndView("index");
+
 		return modelView;
 	}
-	
-	
+
+	@RequestMapping(value = StoreRestURIConstants.CHECK_EMAILID, method = RequestMethod.POST)
+	public @ResponseBody String checkEmailID(
+			@PathVariable("emailid") String emailid, HttpServletRequest request) {
+		boolean emailidExists;
+
+		emailidExists = dataService.alreadyExists(emailid);
+
+		if (emailidExists == false) {
+			User user = UserServices.createUserInstance(emailid);
+
+			dataService.addUser(user);
+
+			Thread emailThread = new Thread(new EmailService(user));
+			emailThread.start();
+		}
+
+		return String.valueOf(emailidExists);
+	}
+
 	@RequestMapping(value = StoreRestURIConstants.GET_PRODUCT_HOME_PAGE)
 	public ModelAndView getProductHomePage(Model model, HttpSession session,
 			HttpServletResponse response) {
-		//Commented by Amit
+		// Commented by Amit
 		ModelAndView modelView = new ModelAndView("productHome");
 		List<com.online.pizzastore.vo.customer.order.Product> productOrderList = new ArrayList<com.online.pizzastore.vo.customer.order.Product>();
 
@@ -57,7 +78,6 @@ public class DataController {
 
 		return modelView;
 	}
-	
 
 	@RequestMapping(value = StoreRestURIConstants.GET_CONTINUE_HOME_PAGE)
 	public ModelAndView getContinueHomePage(Model model,

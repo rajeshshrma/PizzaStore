@@ -33,4 +33,14 @@ public class DataServiceImpl implements IDataService {
 	public Topping findToppingByID(int toppingId) {
 		return dataDao.findToppingByID(toppingId);
 	}
+	
+	public boolean alreadyExists(String emailid) 
+	{
+		return dataDao.alreadyExists(emailid);
+	}
+	
+	public void addUser(User user)
+	{
+		dataDao.addUser(user);
+	}
 }

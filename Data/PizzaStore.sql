@@ -154,13 +154,18 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
-  `EMAILID` varchar(45) NOT NULL,
-  `PASSWORD` varchar(45) NOT NULL,
-  `FIRST_NAME` varchar(45) NOT NULL,
-  `LAST_NAME` varchar(45) NOT NULL,
-  `PHONE` varchar(10) NOT NULL,
-  `ADDRESS` varchar(45) NOT NULL,
-  PRIMARY KEY (`EMAILID`)
+  `USER_ID` varchar(45) DEFAULT NULL,
+  `PASSWORD` varchar(45) DEFAULT NULL,
+  `FIRST_NAME` varchar(45) DEFAULT NULL,
+  `LAST_NAME` varchar(45) DEFAULT NULL,
+  `STATUS` varchar(10) DEFAULT NULL,
+  `EMAIL_ID` varchar(45) NOT NULL,
+  `USER_TOKEN` varchar(45) DEFAULT NULL,
+  `CREATED_DATE` varchar(45) DEFAULT NULL,
+  `LAST_MODIFIED_DATE` varchar(45) DEFAULT NULL,
+  `TOKEN_EXPIRY_DATE` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`EMAIL_ID`),
+  UNIQUE KEY `USER_ID_UNIQUE` (`USER_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -170,7 +175,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('bestrajesh@gmail.com','raj123','Rajesh','Kumar','9467505544','Jind');
+INSERT INTO `user` VALUES ('bestrajesh','raj123','Rajesh','Kumar','','bestrajesh@gmail.com',NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -183,4 +188,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-12 10:58:01
+-- Dump completed on 2014-11-15 23:17:00

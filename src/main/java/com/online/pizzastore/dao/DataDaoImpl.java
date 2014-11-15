@@ -6,9 +6,9 @@ import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.hibernate.Query;
 
 import com.online.pizzastore.vo.Product;
 import com.online.pizzastore.vo.Topping;
@@ -31,6 +31,7 @@ public class DataDaoImpl implements IDataDao {
 
 	}
 
+	@Transactional
 	public Product findProductByID(int productId) {
 
 		Session session = sessionFactory.openSession();
@@ -39,6 +40,7 @@ public class DataDaoImpl implements IDataDao {
 		return product;
 	}
 
+	@Transactional
 	public List<Topping> findToppingsByProductID(int productId) {
 
 		Session session = sessionFactory.openSession();
@@ -49,7 +51,8 @@ public class DataDaoImpl implements IDataDao {
 
 		return toppings;
 	}
-	
+
+	@Transactional
 	public Topping findToppingByID(int toppingId) {
 
 		Session session = sessionFactory.openSession();
@@ -57,26 +60,42 @@ public class DataDaoImpl implements IDataDao {
 
 		return topping;
 	}
-	
 
+	@Transactional
 	@SuppressWarnings("unchecked")
+	public boolean alreadyExists(String emailid) {
+
+		List<User> result = sessionFactory.openSession()
+				.createQuery("from User as u where u.emailid=:emailid")
+				.setParameter("emailid", emailid).list();
+		return !result.isEmpty();
+
+	}
+	
+	public void addUser(User user) {  
+		  Session session = sessionFactory.openSession();  
+		  Transaction tx = session.beginTransaction();  
+		  session.save(user);  
+		  
+		  tx.commit();  
+		 }  
+
 	public boolean authenticateUser(User user) {
-		Session session = sessionFactory.openSession();
 
 		boolean userFound = false;
 
-		String SQL_QUERY = "from User as u where u.EMAILID=? and u.PASSWORD=?";
-
-		Query query = session.createQuery(SQL_QUERY);
-		query.setParameter(0, user.getEmailid());
-		query.setParameter(1, user.getPassword());
-
-		List<User> userObjs = query.list();
-
-		if (userObjs.size() != 0) {
-			userFound = true;
-			System.out.println("User Login Detail Found.................");
-		}
+		/*
+		 * Session session = sessionFactory.openSession(); String SQL_QUERY =
+		 * "from User as u where u.EMAILID=? and u.PASSWORD=?";
+		 * 
+		 * Query query = session.createQuery(SQL_QUERY); query.setParameter(0,
+		 * user.getEmailid()); query.setParameter(1, user.getPassword());
+		 * 
+		 * List<User> userObjs = query.list();
+		 * 
+		 * if (userObjs.size() != 0) { userFound = true;
+		 * System.out.println("User Login Detail Found................."); }
+		 */
 
 		return userFound;
 

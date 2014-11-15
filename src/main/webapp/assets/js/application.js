@@ -1,23 +1,45 @@
-// NOTICE!! DO NOT USE ANY OF THIS JAVASCRIPT
-// IT'S ALL JUST JUNK FOR OUR DOCS!
-// ++++++++++++++++++++++++++++++++++++++++++
+(function() {
+	var app = angular.module('pizzastore', []);
 
-!function ($) {
+	app.controller("PageController", function($scope, $http) {
+		this.emailStatus = emailStatus;
+		this.showOption = showOption;
+		$scope.checkEmailID = function() {
 
-  $(function(){
+			if ($scope.signupForm.$invalid) {
+				return;
+			}
 
-    var $window = $(window)
+			$http({
+				method : 'POST',
+				url : '/PizzaStore/user/emailid/' + $scope.emailid + '/check'
+			}).success(function(data, status, headers, config) {
+				emailStatus.isExist = data;
 
-    $('.button-loading')
-      .click(function () {
-        var btn = $(this)
-        btn.button('loading')
-        setTimeout(function () {
-          btn.button('reset')
-        }, 3000)
-      })
-  })
+				if (data=='false') {
+					showOption.showLogin=false;
+					showOption.showSignupMsg=true;
+				}
 
-// Modified from the original jsonpi https://github.com/benvinegar/jquery-jsonpi
+			}).error(function(data, status, headers, config) {
+				// called asynchronously if an error
+				// occurs
+				// or server returns response with an
+				// error status.
+			});
 
-}(window.jQuery)
+		}
+
+	});
+
+	var showOption = {
+		showLogin : true,
+		showSignupMsg:false,
+		showMsg : 'Your account is successfully crated. Please check your email for login instructions'
+	}
+
+	var emailStatus = {
+		isExist : false,
+		statusMsg : 'This email id is already registered. Please try Sign In or use Forget password option to reset your password.'
+	}
+})();

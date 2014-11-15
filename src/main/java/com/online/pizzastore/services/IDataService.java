@@ -16,5 +16,9 @@ public interface IDataService {
 	public List<Topping> findToppingsByProductID(int productId);
 	
 	public Topping findToppingByID(int toppingId);
+	
+	public boolean alreadyExists(String emailid) ;
+	
+	public void addUser(User user);
 
 }

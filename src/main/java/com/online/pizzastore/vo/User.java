@@ -2,19 +2,15 @@ package com.online.pizzastore.vo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "user")
 public class User {
-	@Id
-	@GeneratedValue
-	private String EMAILID;
 	
-	@Column(name = "PASSWORD")
-	private String PASSWORD;
+	@Column(name = "USER_ID")
+	private String userid;
 	
 	@Column(name = "FIRST_NAME")
 	private String firstName;
@@ -22,94 +18,95 @@ public class User {
 	@Column(name = "LAST_NAME")
 	private String lastName;
 	
-	@Column(name = "PHONE")
-	private String phone;
+	@Column(name = "STATUS")
+	private String status;
 	
-	@Column(name = "ADDRESS")
-	private String address;
+	@Id
+	@Column(name = "EMAIL_ID")
+	private String emailid;
 	
-	/**
-	 * @return the emailid
-	 */
-	public String getEmailid() {
-		return EMAILID;
+	@Column(name = "USER_TOKEN")
+	private String userToken;
+	
+	@Column(name = "TOKEN_EXPIRY_DATE")
+	private String tokenExpiryDate;
+	
+	@Column(name = "CREATED_DATE")
+	private String createdDate;
+	
+	@Column(name = "LAST_MODIFIED_DATE")
+	private String lastModifieddDate;
+
+	public String getUserid() {
+		return userid;
 	}
 
-	/**
-	 * @param emailid the emailid to set
-	 */
-	public void setEmailid(String emailid) {
-		this.EMAILID = emailid;
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 
-	/**
-	 * @return the password
-	 */
-	public String getPassword() {
-		return PASSWORD;
-	}
-
-	/**
-	 * @param password the password to set
-	 */
-	public void setPassword(String password) {
-		this.PASSWORD = password;
-	}
-
-	/**
-	 * @return the firstName
-	 */
 	public String getFirstName() {
 		return firstName;
 	}
 
-	/**
-	 * @param firstName the firstName to set
-	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
-	/**
-	 * @return the lastName
-	 */
 	public String getLastName() {
 		return lastName;
 	}
 
-	/**
-	 * @param lastName the lastName to set
-	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
-	/**
-	 * @return the phone
-	 */
-	public String getPhone() {
-		return phone;
+	public String getStatus() {
+		return status;
 	}
 
-	/**
-	 * @param phone the phone to set
-	 */
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
-	/**
-	 * @return the address
-	 */
-	public String getAddress() {
-		return address;
+	public String getEmailid() {
+		return emailid;
 	}
 
-	/**
-	 * @param address the address to set
-	 */
-	public void setAddress(String address) {
-		this.address = address;
+	public void setEmailid(String emailid) {
+		this.emailid = emailid;
 	}
 
+	public String getUserToken() {
+		return userToken;
+	}
+
+	public void setUserToken(String userToken) {
+		this.userToken = userToken;
+	}
+
+	public String getTokenExpiryDate() {
+		return tokenExpiryDate;
+	}
+
+	public void setTokenExpiryDate(String tokenExpiryDate) {
+		this.tokenExpiryDate = tokenExpiryDate;
+	}
+
+	public String getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(String createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public String getLastModifieddDate() {
+		return lastModifieddDate;
+	}
+
+	public void setLastModifieddDate(String lastModifieddDate) {
+		this.lastModifieddDate = lastModifieddDate;
+	}
+	
 }
