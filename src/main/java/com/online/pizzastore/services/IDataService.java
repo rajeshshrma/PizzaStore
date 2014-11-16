@@ -17,8 +17,13 @@ public interface IDataService {
 	
 	public Topping findToppingByID(int toppingId);
 	
-	public boolean alreadyExists(String emailid) ;
+	public boolean userAlreadyExists(String emailid) ;
 	
 	public void addUser(User user);
 
+	public boolean tokenAlreadyExists(String token);
+	
+	public User findUserByToken(String userToken) ;
+	
+	public void updateUser(User user);
 }

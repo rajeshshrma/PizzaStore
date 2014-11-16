@@ -28,6 +28,7 @@ import com.online.pizzastore.vo.Cart;
 import com.online.pizzastore.vo.Product;
 import com.online.pizzastore.vo.Topping;
 import com.online.pizzastore.vo.User;
+import com.online.pizzastore.vo.UserStatus;
 
 @Controller
 @SessionAttributes
@@ -50,10 +51,10 @@ public class DataController {
 			@PathVariable("emailid") String emailid, HttpServletRequest request) {
 		boolean emailidExists;
 
-		emailidExists = dataService.alreadyExists(emailid);
+		emailidExists = dataService.userAlreadyExists(emailid);
 
 		if (emailidExists == false) {
-			User user = UserServices.createUserInstance(emailid);
+			User user = UserServices.createUserInstance(emailid, dataService);
 
 			dataService.addUser(user);
 
@@ -64,6 +65,70 @@ public class DataController {
 		return String.valueOf(emailidExists);
 	}
 
+	// userToken
+	@RequestMapping(value = StoreRestURIConstants.GET_TOKEN_VERIFICATION_PAGE)
+	public ModelAndView getTokenVerificationPage(
+			@PathVariable("userToken") String userToken, Model model,
+			HttpServletRequest request, HttpServletResponse response) {
+
+		ModelAndView modelView = new ModelAndView("userRegistration");
+
+		User user = dataService.findUserByToken(userToken);
+
+		if (!user.equals(null)) {
+			if (UserServices.isTokenExpired(user.getTokenExpiryDate())) {
+				modelView = new ModelAndView("tokenExpiredPage");
+			} else {
+				request.getSession().setAttribute("user", user);
+			}
+		}
+
+		return modelView;
+	}
+
+	@RequestMapping(value = StoreRestURIConstants.VERIFY_EMAILID, method = RequestMethod.POST)
+	public @ResponseBody String verifyEmailID(
+			@PathVariable("emailid") String emailidToVerify,
+			HttpServletRequest request) {
+
+		User user = (User) request.getSession().getAttribute("user");
+		if (user.getEmailid()
+				.equals(emailidToVerify)) {
+			user.setStatus(UserStatus.EMAIL_VERIFIED.toString());
+			dataService.updateUser(user);
+			request.getSession().setAttribute("user", user);
+			return "true";
+		} else {
+			return "false";
+		}
+
+	}
+
+	@RequestMapping(value = StoreRestURIConstants.SAVE_PASSWORD, method = RequestMethod.POST)
+	public @ResponseBody String savePassword(
+			@PathVariable("password") String password,
+			HttpServletRequest request) {
+
+		//User user = (User) request.getSession().getAttribute("user");
+		//user.setPassword(password);
+		
+		//dataService.updateUser(user);
+		
+		//request.getSession().setAttribute("user", user);
+		
+		
+		/*
+		 * if (request.getSession().getAttribute("emailid").toString()
+		 * .equals(emailidToVerify)) { return "true"; } else { return "false"; }
+		 */
+
+		return "";
+
+	}
+
+	/******************************************
+	 * Product Page Functions Starting from here
+	 ******************************************/
 	@RequestMapping(value = StoreRestURIConstants.GET_PRODUCT_HOME_PAGE)
 	public ModelAndView getProductHomePage(Model model, HttpSession session,
 			HttpServletResponse response) {

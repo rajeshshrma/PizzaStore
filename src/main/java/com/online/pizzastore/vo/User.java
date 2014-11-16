@@ -12,6 +12,9 @@ public class User {
 	@Column(name = "USER_ID")
 	private String userid;
 	
+	@Column(name = "PASSWORD")
+	private String password;	
+	
 	@Column(name = "FIRST_NAME")
 	private String firstName;
 	
@@ -25,7 +28,7 @@ public class User {
 	@Column(name = "EMAIL_ID")
 	private String emailid;
 	
-	@Column(name = "USER_TOKEN")
+	@Column(name = "USER_TOKEN",unique=true)
 	private String userToken;
 	
 	@Column(name = "TOKEN_EXPIRY_DATE")
@@ -107,6 +110,14 @@ public class User {
 
 	public void setLastModifieddDate(String lastModifieddDate) {
 		this.lastModifieddDate = lastModifieddDate;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 }

@@ -14,5 +14,9 @@ public class StoreRestURIConstants {
 	public static final String ADD_TOPPINGS_TO_CART = "/cart/product/{productPosition}/add/toppings/{toppingId}/{optionId}";
 	public static final String GET_TOPPINGS_LIST = "/cart/product/toppings/list/{productId}";
 	public static final String CHECK_EMAILID = "/user/emailid/{emailid}/check";
+	public static final String VERIFY_EMAILID = "/user/emailid/{emailid}/verify";
+	public static final String SAVE_PASSWORD = "/user/save/password/{password}";
+	public static final String GET_TOKEN_VERIFICATION_PAGE = "/customer/new/{userToken}";
+	
 
 }

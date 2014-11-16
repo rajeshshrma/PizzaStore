@@ -18,16 +18,17 @@ public class EmailService implements Runnable {
 		this.user = user;
 	}
 
-	private static String getMessageBody(String token) {
-		String msg = "Hi Guest, \n\n";
+	private String getMessageBody() {
+		String msg = "Hello " + this.user.getEmailid() + ",\n\n";
 		msg = msg + "Thanks for registering with us.";
-		msg = msg + "Please click on the below mentioned link to ";
-		msg = msg + "verify your account.\n\n";
-		msg = msg + "http://localhost:8080/PizzaStore/customer";
-		msg = msg + "/new/" + token + "\n\n";
+		msg = msg
+				+ "Please click on the below mentioned link to verify your account.\n\n";
+		msg = msg + "http://localhost:8080/PizzaStore/customer/new/"
+				+ this.user.getUserToken() + "\n\n";
+		msg = msg
+				+ "If you did not request this, please accept our apologies and kindly ignore this email.\n\n";
 		msg = msg + "Thanks & Regards\n\n";
-		msg = msg + "Admin";
-		msg = msg + "\nASR Pizza Store";
+		msg = msg + "Admin\nASR Pizza Store";
 
 		return msg;
 	}
@@ -37,7 +38,7 @@ public class EmailService implements Runnable {
 		String smtpHostServer = "smtp.gmail.com";
 		String subject = "User Verification Required";
 
-		String body = getMessageBody(this.user.getUserToken());
+		String body = this.getMessageBody();
 
 		Properties props = new Properties();
 

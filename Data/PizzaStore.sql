@@ -158,7 +158,7 @@ CREATE TABLE `user` (
   `PASSWORD` varchar(45) DEFAULT NULL,
   `FIRST_NAME` varchar(45) DEFAULT NULL,
   `LAST_NAME` varchar(45) DEFAULT NULL,
-  `STATUS` varchar(10) DEFAULT NULL,
+  `STATUS` varchar(20) DEFAULT NULL,
   `EMAIL_ID` varchar(45) NOT NULL,
   `USER_TOKEN` varchar(45) DEFAULT NULL,
   `CREATED_DATE` varchar(45) DEFAULT NULL,
@@ -175,7 +175,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('bestrajesh','raj123','Rajesh','Kumar','','bestrajesh@gmail.com',NULL,NULL,NULL,NULL);
+INSERT INTO `user` VALUES ('bestrajesh','raj123','Rajesh','Kumar','','bestrajesh@gmail.com',NULL,NULL,NULL,NULL),(NULL,NULL,NULL,NULL,'EMAIL_REGISTERED','rjkumar.shrma@gmail.com','DEBQy0543982',NULL,NULL,'Sun Nov 16 22:23:07 2014');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -188,4 +188,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-15 23:17:00
+-- Dump completed on 2014-11-16 20:29:55

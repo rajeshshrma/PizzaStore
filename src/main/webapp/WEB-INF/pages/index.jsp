@@ -12,16 +12,16 @@
 
 <title>Login Form</title>
 
-<script type="text/javascript" src="assets/js/jquery-1.9.1.min.js"></script>
-<script type="text/javascript" src="assets/js/angular.min.js"></script>
-<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="assets/js/bootstrap-button.js"></script>
-<script type="text/javascript" src="assets/js/application.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/angular.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/bootstrap-button.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/application.js"></script>
 
 
-<link rel="stylesheet" href="assets/css/bootstrap.css">
-<link rel="stylesheet" href="assets/css/bootstrap-responsive.min.css">
-<link rel="stylesheet" href="assets/css/bootstrap-custom.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap-responsive.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap-custom.css">
 
 
 </head>
@@ -37,7 +37,7 @@
 		</div>
 	</div>
 
-	<div id="wrap" id="wrap" data-ng-show="pageCtrl.showOption.showLogin">
+	<div id="wrap1" data-ng-show="pageCtrl.showOption.showLogin">
 		<div class="container">
 			<div class="row">
 				<div class="span6" id="form-login">
@@ -79,43 +79,47 @@
 						</fieldset>
 					</form>
 
-						<form class="form-horizontal well" name="signupForm"
-							data-ng-submit="checkEmailID()" novalidate>
-							<fieldset>
-								<legend>New User - Signup here</legend>
-									<div data-ng-show="pageCtrl.emailStatus.isExist"
-										class="alert alert-danger">{{pageCtrl.emailStatus.statusMsg}}
-									</div>
-								<div class="control-group">
-									<div class="control-label">
-										<label>Email ID</label>
-									</div>
-									<div class="controls">
-										<input name="emailid" type="email" placeholder="Email Address"
-											class="input-large" data-ng-model="emailid"
-											required="required">
-									</div>
+					<form class="form-horizontal well" name="signupForm"
+						data-ng-submit="checkEmailID()">
+						<fieldset>
+							<legend>New User - Signup</legend>
+							<div data-ng-show="pageCtrl.emailStatus.isExist"
+								class="alert alert-danger">{{pageCtrl.emailStatus.statusMsg}}
+							</div>
 
+							<div data-ng-show="pageCtrl.emailStatus.isInvalid"
+								class="alert alert-danger">{{pageCtrl.emailStatus.statusMsg}}
+							</div>
+
+							<div class="control-group">
+								<div class="control-label">
+									<label>Email ID</label>
+								</div>
+								<div class="controls">
+									<input name="emailid" type="email" placeholder="Email Address"
+										class="input-large" data-ng-model="emailid"
+										required="required">
 								</div>
 
-								<div class="control-group">
-									<div class="controls">
-										<button type=submit class="btn btn-primary button-loading"
-											data-loading-text="Loading...">Sign up</button>
-									</div>
-								</div>
+							</div>
 
-							</fieldset>
-						</form>
+							<div class="control-group">
+								<div class="controls">
+									<button type=submit class="btn btn-primary button-loading"
+										data-loading-text="Loading...">Sign up</button>
+								</div>
+							</div>
+
+						</fieldset>
+					</form>
 
 				</div>
 			</div>
 		</div>
-		<div id="push"></div>
 	</div>
 
 
-	<div id="wrap" data-ng-show="pageCtrl.showOption.showSignupMsg">
+	<div id="wrap2" data-ng-show="pageCtrl.showOption.showSignupMsg">
 		<div class="container">
 			<div class="row">
 				<div class="span6" id="form-login">
@@ -133,7 +137,6 @@
 				</div>
 			</div>
 		</div>
-		<div id="push"></div>
 	</div>
 
 

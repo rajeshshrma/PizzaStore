@@ -34,13 +34,28 @@ public class DataServiceImpl implements IDataService {
 		return dataDao.findToppingByID(toppingId);
 	}
 	
-	public boolean alreadyExists(String emailid) 
+	public boolean userAlreadyExists(String emailid) 
 	{
-		return dataDao.alreadyExists(emailid);
+		return dataDao.userAlreadyExists(emailid);
 	}
 	
 	public void addUser(User user)
 	{
 		dataDao.addUser(user);
+	}
+	
+	public boolean tokenAlreadyExists(String token)
+	{
+		return dataDao.tokenAlreadyExists(token);
+	}
+	
+	public User findUserByToken(String userToken) 
+	{
+		return dataDao.findUserByToken(userToken);
+	}
+	
+	public void updateUser(User user)
+	{
+		dataDao.updateUser(user);
 	}
 }
