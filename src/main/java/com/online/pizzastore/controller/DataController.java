@@ -67,7 +67,7 @@ public class DataController {
 
 		if (emailidExists == false) {
 			User user = UserServices.createUserInstance(emailid, dataService);
-
+			logger.debug("User object after retrieving from database: " + user);
 			dataService.addUser(user);
 
 			Thread emailThread = new Thread(new EmailService(user));
