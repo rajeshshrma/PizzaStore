@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration>
+
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+	<appender name="DEBUG" class="org.apache.log4j.RollingFileAppender">
+		<param name="file" value="d:/logs/pizzastore/debug.log" />
+		<param name="append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{dd MMM yyyy HH:mm:ss,SSS} [%t] %c %x %p- %m%n" />
+		</layout>
+
+	</appender>
+
+	<appender name="EXCEPTION" class="org.apache.log4j.RollingFileAppender">
+		<param name="file" value="d:/logs/pizzastore/exception.log" />
+		<param name="Threshold" value="ERROR" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{dd MMM yyyy HH:mm:ss,SSS} [%t] %c %x %p- %m%n" />
+		</layout>
+	</appender>
+	<!-- ************************************************************** END 
+		- APPENDERS ************************************************************** -->
+	<logger name="org.hibernate">
+		<level value="fatal" />
+		<appender-ref ref="DEBUG" />
+		<appender-ref ref="EXCEPTION" />
+
+	</logger>
+	
+	<logger name="org.springframework">
+		<level value="fatal" />
+		<appender-ref ref="DEBUG" />
+		<appender-ref ref="EXCEPTION" />
+
+	</logger>	
+	
+	<logger name="com.online.pizzastore" additivity="false">
+		<level value="debug" />
+		<appender-ref ref="DEBUG" />
+		<appender-ref ref="EXCEPTION" />
+
+	</logger>
+	
+	<root>
+		<priority value="ALL" />
+		<appender-ref ref="DEBUG" />
+		<appender-ref ref="EXCEPTION" />
+	</root>
+</log4j:configuration>

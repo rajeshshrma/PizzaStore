@@ -7,7 +7,7 @@ import com.online.pizzastore.vo.Topping;
 import com.online.pizzastore.vo.User;
 
 public interface IDataService {
-	public boolean authenticateUser(User user);
+	public User authenticateUser(String emailid,String password) ;
 
 	public List<Product> findAllProducts();
 

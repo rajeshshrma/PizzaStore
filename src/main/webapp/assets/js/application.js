@@ -7,6 +7,8 @@
 					function($scope, $http) {
 						this.emailStatus = emailStatus;
 						this.showOption = showOption;
+						this.loginStatus = loginStatus;
+
 						$scope.checkEmailID = function() {
 
 							if ($scope.signupForm.$invalid) {
@@ -34,6 +36,37 @@
 
 												} else {
 													emailStatus.statusMsg = 'This email id is already registered. Please try Sign In or use Forget password option to reset your password.';
+												}
+
+											}).error(
+											function(data, status, headers,
+													config) {
+
+											});
+
+						}
+
+						$scope.loginUser = function() {
+
+							if ($scope.loginForm.$invalid) {
+								return;
+							}
+
+							$http(
+									{
+										method : 'POST',
+										url : '/PizzaStore/user/check/login/'
+												+ $scope.emailid + '/'
+												+ $scope.password
+									})
+									.success(
+											function(data, status, headers,
+													config) {
+
+												if (data == 'true') {
+													window.location = "/PizzaStore/user/homepage";
+												} else {
+													loginStatus.isUnauthorised = true;
 												}
 
 											}).error(
@@ -110,18 +143,57 @@
 									.success(
 											function(data, status, headers,
 													config) {
-												showRegFormOption.showConfirmPasswordError = false;
 
 												if (data == 'false') {
-
-													showRegFormOption.isEmailVerified = false;
-													showRegFormOption.showEmailForm = true;
-													showRegFormOption.showPasswordForm = false;
-													showRegFormOption.showMsg = 'Your have provided wrong email id as you have been provided during signup. Try again.....';
-												} else {
-													showRegFormOption.isEmailVerified = true;
 													showRegFormOption.showEmailForm = false;
 													showRegFormOption.showPasswordForm = true;
+													showRegFormOption.showAddressForm = false;
+												} else {
+													showRegFormOption.showEmailForm = false;
+													showRegFormOption.showPasswordForm = false;
+													showRegFormOption.showAddressForm = true;
+												}
+
+											}).error(
+											function(data, status, headers,
+													config) {
+											});
+						}
+
+						$scope.saveAddress = function() {
+
+							if ($scope.saveAddressForm.$invalid) {
+								return;
+							}
+
+							$http(
+									{
+										method : 'POST',
+										url : '/PizzaStore/user/save/address/'
+												+ $scope.firstname + '/'
+												+ $scope.lastname + '/'
+												+ $scope.address1 + '/'
+												+ $scope.address2 + '/'
+												+ $scope.address3 + '/'
+												+ $scope.phone + '/'
+												+ $scope.city + '/'
+												+ $scope.state + '/'
+												+ $scope.country
+									})
+									.success(
+											function(data, status, headers,
+													config) {
+
+												if (data == 'false') {
+													showRegFormOption.showEmailForm = false;
+													showRegFormOption.showPasswordForm = false;
+													showRegFormOption.showAddressForm = true;
+													showRegFormOption.showSuccessRegistrationScreen = false;
+												} else {
+													showRegFormOption.showEmailForm = false;
+													showRegFormOption.showPasswordForm = false;
+													showRegFormOption.showAddressForm = false;
+													showRegFormOption.showSuccessRegistrationScreen = true;
 												}
 
 											}).error(
@@ -144,13 +216,19 @@
 		statusMsg : '...'
 	}
 
+	var loginStatus = {
+		isUnauthorised : false
+	}
+
 	var showRegFormOption = {
 		showMsg : '....',
 		showEmailForm : true,
 		isEmailValid : false,
 		isEmailVerified : true,
 		showPasswordForm : false,
-		showConfirmPasswordError : false
+		showConfirmPasswordError : false,
+		showAddressForm : false,
+		showSuccessRegistrationScreen : false
 	}
 
 })();

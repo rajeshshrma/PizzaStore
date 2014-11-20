@@ -2,23 +2,31 @@ package com.online.pizzastore.services;
 
 import java.util.Date;
 import java.util.Properties;
+
 import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+import org.apache.log4j.Logger;
+
 import com.online.pizzastore.vo.User;
 
 public class EmailService implements Runnable {
 
 	private User user = null;
+	private static final Logger logger = Logger.getLogger(EmailService.class);
 
 	public EmailService(User user) {
 		this.user = user;
 	}
 
 	private String getMessageBody() {
+		logger.debug("EmailService.getMessageBody() : Enter");
+		long startTime = System.currentTimeMillis();
+
 		String msg = "Hello " + this.user.getEmailid() + ",\n\n";
 		msg = msg + "Thanks for registering with us.";
 		msg = msg
@@ -30,11 +38,15 @@ public class EmailService implements Runnable {
 		msg = msg + "Thanks & Regards\n\n";
 		msg = msg + "Admin\nASR Pizza Store";
 
+		logger.debug("EmailService.getMessageBody() : Exiit: Total Time Taken: "
+				+ (System.currentTimeMillis() - startTime));
 		return msg;
 	}
 
 	private void sendEmail() {
 
+		logger.debug("EmailService.sendEmail() : Enter");
+		long startTime = System.currentTimeMillis();
 		String smtpHostServer = "smtp.gmail.com";
 		String subject = "User Verification Required";
 
@@ -81,8 +93,12 @@ public class EmailService implements Runnable {
 			System.out.println("EMail Sent Successfully to : "
 					+ user.getEmailid() + "!!");
 		} catch (Exception e) {
+			logger.error("mailService.sendEmail() : Error : " + e.getMessage());
 			e.printStackTrace();
 		}
+
+		logger.debug("EmailService.sendEmail() : Exiit: Total Time Taken: "
+				+ (System.currentTimeMillis() - startTime));
 	}
 
 	public void run() {

@@ -1,14 +1,23 @@
 package com.online.pizzastore.vo;
 
+import java.io.Serializable;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1565279967021999406L;
+
 	@Column(name = "USER_ID")
 	private String userid;
 	
@@ -25,7 +34,7 @@ public class User {
 	private String status;
 	
 	@Id
-	@Column(name = "EMAIL_ID")
+	@Column(name = "EMAIL_ID", unique = true, nullable = false)
 	private String emailid;
 	
 	@Column(name = "USER_TOKEN",unique=true)
@@ -39,6 +48,9 @@ public class User {
 	
 	@Column(name = "LAST_MODIFIED_DATE")
 	private String lastModifieddDate;
+	
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL) 
+	private Address address;
 
 	public String getUserid() {
 		return userid;
@@ -118,6 +130,14 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 	
 }

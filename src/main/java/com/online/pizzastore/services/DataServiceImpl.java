@@ -18,8 +18,8 @@ public class DataServiceImpl implements IDataService {
 		return dataDao.findAllProducts();
 	}
 
-	public boolean authenticateUser(User user) {
-		return dataDao.authenticateUser(user);
+	public User authenticateUser(String emailid,String password)  {
+		return dataDao.authenticateUser(emailid, password);
 	}
 
 	public Product findProductByID(int productId) {
