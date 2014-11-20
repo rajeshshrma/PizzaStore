@@ -52,6 +52,16 @@ public class User implements Serializable{
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL) 
 	private Address address;
 
+	public String toString(){
+		StringBuffer sb = new StringBuffer();
+		sb.append("<User>\n")
+		.append("\t<Password>").append(password).append("</Password>")
+		.append("\t<FirstName>").append(firstName).append("</FirstName>")
+		.append("\t<Status>").append(status).append("</Status>")
+		.append("</User>");
+		
+		return sb.toString();
+	}
 	public String getUserid() {
 		return userid;
 	}
