@@ -58,4 +58,9 @@ public class DataServiceImpl implements IDataService {
 	{
 		dataDao.updateUser(user);
 	}
+	
+	public User findUserByEmailID(String emailid)
+	{
+		return dataDao.findUserByEmailID(emailid);
+	}
 }

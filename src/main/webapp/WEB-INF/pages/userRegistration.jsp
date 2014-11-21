@@ -31,6 +31,10 @@
 	href="${pageContext.request.contextPath}/assets/css/bootstrap-responsive.min.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/bootstrap-custom.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/bootstrap-theme.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/bootstrap-glyphicons.css">
 
 
 </head>
@@ -55,7 +59,7 @@
 				<div class="span6" id="form-login">
 					<form class="form-horizontal well" name="verificationForm"
 						data-ng-submit="verifyEmailID()">
-						<fieldset>
+						<fieldset style="border:0 none">
 							<legend>Email ID - Verification</legend>
 							<div data-ng-show="emailCtrl.showRegFormOption.isEmailValid"
 								class="alert alert-danger">{{emailCtrl.showRegFormOption.showMsg}}
@@ -68,7 +72,7 @@
 									<label>Email ID</label>
 								</div>
 								<div class="controls">
-									<input name="emailid" type="email" placeholder="Email Address"
+									<input style="height: 26px;" name="emailid" type="email" placeholder="Email Address"
 										class="input-large" data-ng-model="emailid"
 										required="required">
 								</div>
@@ -94,7 +98,7 @@
 				<div class="span6" id="form-login">
 					<form class="form-horizontal well" name="savePasswordForm"
 						data-ng-submit="savePassword()">
-						<fieldset>
+						<fieldset style="border:0 none">
 							<legend>Set Your Password</legend>
 
 							<div
@@ -107,7 +111,7 @@
 									<label>Enter Password</label>
 								</div>
 								<div class="controls">
-									<input type="password" name="password"
+									<input style="height: 26px;" type="password" name="password"
 										placeholder="type your password" data-ng-model="password"
 										class="input-large" data-ng-minlength=5 data-ng-maxlength=20
 										required="required">
@@ -131,7 +135,7 @@
 									<label>Confirm Password</label>
 								</div>
 								<div class="controls">
-									<input type="password" name="confirmPassword"
+									<input style="height: 26px;" type="password" name="confirmPassword"
 										placeholder="type your password"
 										data-ng-model="confirmPassword" class="input-large"
 										data-ng-minlength=5 data-ng-maxlength=20 required="required">
@@ -172,7 +176,7 @@
 				<div class="span6" id="form-login">
 					<form class="form-horizontal well" name="saveAddressForm"
 						data-ng-submit="saveAddress()">
-						<fieldset>
+						<fieldset style="border:0 none">
 							<legend>
 								<spring:message
 									code="userRegistrationPage.AddressForm.profileTitle" />
@@ -184,7 +188,7 @@
 											code="userRegistrationPage.AddressForm.labelFirstName" /></label>
 								</div>
 								<div class="controls">
-									<input type="text" name="firstname"
+									<input style="height: 26px;" type="text" name="firstname"
 										placeholder="your first name" data-ng-model="firstname"
 										class="input-large" required="required">
 								</div>
@@ -205,7 +209,7 @@
 											code="userRegistrationPage.AddressForm.labelLastName" /></label>
 								</div>
 								<div class="controls">
-									<input type="text" name="lastname" placeholder="your last name"
+									<input style="height: 26px;" type="text" name="lastname" placeholder="your last name"
 										data-ng-model="lastname" class="input-large"
 										required="required">
 								</div>
@@ -218,7 +222,8 @@
 									</small>
 								</div>
 							</div>
-
+						</fieldset>
+						<fieldset style="border:0 none">
 							<legend>
 								<spring:message
 									code="userRegistrationPage.AddressForm.addressTitle" />
@@ -230,7 +235,7 @@
 											code="userRegistrationPage.AddressForm.labelAddress1" /></label>
 								</div>
 								<div class="controls">
-									<input type="text" name="address1" placeholder="your address"
+									<input style="height: 26px;" type="text" name="address1" placeholder="your address"
 										data-ng-model="address1" class="input-large"
 										required="required">
 								</div>
@@ -250,7 +255,7 @@
 											code="userRegistrationPage.AddressForm.labelAddress2" /></label>
 								</div>
 								<div class="controls">
-									<input type="text" name="address2" placeholder="your address"
+									<input style="height: 26px;" type="text" name="address2" placeholder="your address"
 										data-ng-model="address2" class="input-large"
 										required="required">
 								</div>
@@ -262,7 +267,7 @@
 											code="userRegistrationPage.AddressForm.labelAddress3" /></label>
 								</div>
 								<div class="controls">
-									<input type="text" name="address3" placeholder="your address"
+									<input style="height: 26px;" type="text" name="address3" placeholder="your address"
 										data-ng-model="address3" class="input-large"
 										required="required">
 								</div>
@@ -275,7 +280,7 @@
 											code="userRegistrationPage.AddressForm.labelPhone" /></label>
 								</div>
 								<div class="controls">
-									<input type="number" name="phone" placeholder="your phone"
+									<input style="height: 26px;" type="number" name="phone" placeholder="your phone"
 										data-ng-model="phone" class="input-large" required="required">
 								</div>
 								<div class="controls"
@@ -299,7 +304,7 @@
 											code="userRegistrationPage.AddressForm.labelCity" /></label>
 								</div>
 								<div class="controls">
-									<input type="text" name="city" placeholder="your city"
+									<input style="height: 26px;" type="text" name="city" placeholder="your city"
 										data-ng-model="city" class="input-large" required="required">
 								</div>
 								<div class="controls"
@@ -318,7 +323,7 @@
 											code="userRegistrationPage.AddressForm.labelState" /></label>
 								</div>
 								<div class="controls">
-									<input type="text" name="state" placeholder="your state"
+									<input style="height: 26px;" type="text" name="state" placeholder="your state"
 										data-ng-model="state" class="input-large" required="required">
 								</div>
 								<div class="controls"
@@ -338,7 +343,7 @@
 											code="userRegistrationPage.AddressForm.labelCountry" /></label>
 								</div>
 								<div class="controls">
-									<input type="text" name="country" placeholder="your country"
+									<input style="height: 26px;" type="text" name="country" placeholder="your country"
 										data-ng-model="country" class="input-large"
 										required="required">
 								</div>
@@ -374,7 +379,7 @@
 			<div class="row">
 				<div class="span6" id="form-login">
 					<div class="form-horizontal well">
-						<fieldset>
+						<fieldset style="border:0 none">
 							<legend>Success</legend>
 
 							<div class="control-group">

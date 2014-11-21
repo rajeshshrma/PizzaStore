@@ -30,6 +30,10 @@
 	href="${pageContext.request.contextPath}/assets/css/bootstrap-responsive.min.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/bootstrap-custom.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/bootstrap-theme.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/bootstrap-glyphicons.css">
 
 </head>
 <body>
@@ -50,7 +54,7 @@
 			<div class="row">
 				<div class="span6" id="form-login">
 					<div class="form-horizontal well">
-						<fieldset>
+						<fieldset style="border: 0 none">
 							<legend>Session Expired</legend>
 
 							<div class="alert alert-danger">

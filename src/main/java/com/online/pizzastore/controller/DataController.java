@@ -1,5 +1,6 @@
 package com.online.pizzastore.controller;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.codec.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -70,7 +72,7 @@ public class DataController {
 			logger.debug("User object after retrieving from database: " + user);
 			dataService.addUser(user);
 
-			Thread emailThread = new Thread(new EmailService(user));
+			Thread emailThread = new Thread(new EmailService(user, true));
 			emailThread.start();
 		}
 
@@ -143,6 +145,9 @@ public class DataController {
 		logger.debug("DataController.savePassword() : Enter");
 		long startTime = System.currentTimeMillis();
 
+		byte[] encodedBytes = Base64.encode(password.getBytes());
+		password = new String(encodedBytes,Charset.forName("UTF-8"));
+		
 		User user = (User) request.getSession().getAttribute("user");
 		if (user == null) {
 			logger.debug("DataController.savePassword() : Exiit: Total Time Taken: "
@@ -223,7 +228,11 @@ public class DataController {
 		logger.debug("DataController.authenticateUser() : Enter");
 		long startTime = System.currentTimeMillis();
 		
+		byte[] encodedBytes = Base64.encode(password.getBytes());
+		password = new String(encodedBytes,Charset.forName("UTF-8"));
+
 		User user = dataService.authenticateUser(emailid, password);
+
 
 		String resp = "";
 
@@ -236,16 +245,14 @@ public class DataController {
 
 		logger.debug("DataController.authenticateUser() : Exiit: Total Time Taken: "
 				+ (System.currentTimeMillis() - startTime));
-		
 
 		return resp;
 
 	}
-	
-	
+
 	@RequestMapping(value = StoreRestURIConstants.GET_USER_HOME_PAGE)
 	public ModelAndView getUserHomePage(Model model, HttpServletRequest request) {
-	
+
 		logger.debug("DataController.getUserHomePage() : Enter");
 		long startTime = System.currentTimeMillis();
 
@@ -256,6 +263,143 @@ public class DataController {
 
 		return modelView;
 	}
+
+	@RequestMapping(value = StoreRestURIConstants.USER_SIGN_OUT)
+	public ModelAndView getSignOutHomePage(Model model,
+			HttpServletRequest request) {
+		logger.debug("DataController.getSignOutHomePage() : Enter");
+		long startTime = System.currentTimeMillis();
+
+		ModelAndView modelView = new ModelAndView("index");
+
+		request.getSession().removeAttribute("user");
+		request.getSession(false);
+
+		if (request.getSession() != null)
+			request.getSession().setMaxInactiveInterval(1);
+
+		logger.debug("DataController.getSignOutHomePage() : Exiit: Total Time Taken: "
+				+ (System.currentTimeMillis() - startTime));
+
+		return modelView;
+	}
+
+	@RequestMapping(value = StoreRestURIConstants.CHECK_FORGETPASSWORD_EMAILID, method = RequestMethod.POST)
+	public @ResponseBody String checkForgetPasswordEmailID(
+			@PathVariable("emailid") String emailid, HttpServletRequest request) {
+		boolean emailidExists;
+
+		logger.debug("DataController.checkForgetPasswordEmailID() : Enter");
+		long startTime = System.currentTimeMillis();
+
+		emailidExists = dataService.userAlreadyExists(emailid);
+
+		if (emailidExists) {
+			User user = UserServices.createUserInstanceFromDatabase(emailid,
+					dataService);
+			logger.debug("User object after retrieving from database: " + user);
+			dataService.updateUser(user);
+
+			Thread emailThread = new Thread(new EmailService(user, false));
+
+			emailThread.start();
+		}
+
+		System.out.println(emailidExists);
+
+		logger.debug("DataController.checkForgetPasswordEmailID() : Exiit: Total Time Taken: "
+				+ (System.currentTimeMillis() - startTime));
+		return String.valueOf(emailidExists);
+	}
+
+	@RequestMapping(value = StoreRestURIConstants.GET_RESET_PASSWORD_TOKEN_VERIFICATION_PAGE)
+	public ModelAndView getResetPasswordTokenVerificationPage(
+			@PathVariable("userToken") String userToken, Model model,
+			HttpServletRequest request, HttpServletResponse response) {
+
+		logger.debug("DataController.getResetPasswordTokenVerificationPage() : Enter");
+		long startTime = System.currentTimeMillis();
+
+		ModelAndView modelView = new ModelAndView("resetPasswordPage");
+
+		User user = dataService.findUserByToken(userToken);
+
+		if (!user.equals(null)) {
+			if (UserServices.isTokenExpired(user.getTokenExpiryDate())) {
+				modelView = new ModelAndView("tokenExpiredPage2");
+			} else {
+				request.getSession().setAttribute("user", user);
+			}
+		} else {
+			// code for invalid token here
+		}
+
+		logger.debug("DataController.getResetPasswordTokenVerificationPage() : Exiit: Total Time Taken: "
+				+ (System.currentTimeMillis() - startTime));
+		return modelView;
+	}
+
+	@RequestMapping(value = StoreRestURIConstants.VERIFY_EMAILID_TO_RESET_PASSWORD, method = RequestMethod.POST)
+	public @ResponseBody String verifyEmailIDToResetPassword(
+			@PathVariable("emailid") String emailidToVerify,
+			HttpServletRequest request) {
+
+		logger.debug("DataController.verifyEmailIDToResetPassword() : Enter");
+		long startTime = System.currentTimeMillis();
+
+		String result = "";
+
+		User user = (User) request.getSession().getAttribute("user");
+		
+		if (user.getEmailid().equals(emailidToVerify)) {
+
+			result = "true";
+		} else {
+
+			result = "false";
+		}
+
+		logger.debug("DataController.verifyEmailIDToResetPassword() : Exiit: Total Time Taken: "
+				+ (System.currentTimeMillis() - startTime));
+
+		return result;
+
+	}
+	
+	@RequestMapping(value = StoreRestURIConstants.RESET_PASSWORD, method = RequestMethod.POST)
+	public @ResponseBody String resetPassword(
+			@PathVariable("password") String password,
+			HttpServletRequest request) {
+
+		logger.debug("DataController.resetPassword() : Enter");
+		long startTime = System.currentTimeMillis();
+
+		byte[] encodedBytes = Base64.encode(password.getBytes());
+		password = new String(encodedBytes,Charset.forName("UTF-8"));
+		
+		User user = (User) request.getSession().getAttribute("user");
+		if (user == null) {
+			logger.debug("DataController.resetPassword() : Exiit: Total Time Taken: "
+					+ (System.currentTimeMillis() - startTime));
+			return "false";
+		}
+		user.setPassword(password);
+		user.setLastModifieddDate(new Date().toString());
+
+		dataService.updateUser(user);
+
+		request.getSession().removeAttribute("user");
+		request.getSession(false);
+
+		if (request.getSession() != null)
+			request.getSession().setMaxInactiveInterval(1);
+
+		logger.debug("DataController.resetPassword() : Exiit: Total Time Taken: "
+				+ (System.currentTimeMillis() - startTime));
+
+		return "true";
+
+	}	
 
 	/******************************************
 	 * Product Page Functions Starting from here

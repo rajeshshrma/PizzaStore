@@ -54,10 +54,10 @@ public class User implements Serializable{
 
 	public String toString(){
 		StringBuffer sb = new StringBuffer();
-		sb.append("<User>\n")
-		.append("\t<Password>").append(password).append("</Password>")
-		.append("\t<FirstName>").append(firstName).append("</FirstName>")
-		.append("\t<Status>").append(status).append("</Status>")
+		sb.append("\n<User>\n")
+		.append("\t<Password>").append(password).append("</Password>\n")
+		.append("\t<FirstName>").append(firstName).append("</FirstName>\n")
+		.append("\t<Status>").append(status).append("</Status>\n")
 		.append("</User>");
 		
 		return sb.toString();

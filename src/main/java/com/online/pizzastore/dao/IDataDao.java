@@ -27,5 +27,7 @@ public interface IDataDao {
 	public User findUserByToken(String userToken) ;
 	
 	public void updateUser(User user);
+	
+	public User findUserByEmailID(String emailid);
 
 }

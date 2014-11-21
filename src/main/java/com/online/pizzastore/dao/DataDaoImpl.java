@@ -180,5 +180,25 @@ public class DataDaoImpl implements IDataDao {
 		return user;
 
 	}
+	
+	public User findUserByEmailID(String emailid) {
+
+		logger.debug("DataDaoImpl.authenticateUser() : Enter");
+		long startTime = System.currentTimeMillis();		
+
+		Session session = sessionFactory.openSession();
+		String queryString = "from User as u where u.emailid=:emailid";
+		Query query = session.createQuery(queryString);
+		query.setParameter("emailid", emailid);
+				
+		User user = (User) query.uniqueResult();
+
+		session.close();
+
+		logger.debug("DataDaoImpl.authenticateUser() : Exiit: Total Time Taken: "
+				+ (System.currentTimeMillis() - startTime));		
+		return user;
+
+	}
 
 }

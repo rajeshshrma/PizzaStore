@@ -1,7 +1,7 @@
 package com.online.pizzastore.vo;
 
 public enum UserStatus {
-	EMAIL_REGISTERED("ER"), EMAIL_VERIFIED("EV"), PASSWORD_CREATED("PC"), ADDRESS_CREATED("AC");
+	EMAIL_REGISTERED("ER"), EMAIL_VERIFIED("EV"), PASSWORD_CREATED("PC"), ADDRESS_CREATED("AC"), FORGET_PASSWORD("AC");
 	
 	private String statusCode;
 	 
@@ -23,6 +23,8 @@ public enum UserStatus {
 			return PASSWORD_CREATED;
 		case 3:
 			return ADDRESS_CREATED;
+		case 4:
+			return FORGET_PASSWORD;
 		default:
 			return null;
 

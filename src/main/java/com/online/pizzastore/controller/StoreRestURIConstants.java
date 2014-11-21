@@ -22,6 +22,9 @@ public class StoreRestURIConstants {
 	public static final String AUTHENTICATE_USER = "/user/check/login/{emailid}/{password}";
 	
 	public static final String GET_USER_HOME_PAGE = "/user/homepage";
-	
-
+	public static final String USER_SIGN_OUT = "/user/signout";
+	public static final String CHECK_FORGETPASSWORD_EMAILID = "/user/forgetpassword/emailid/{emailid}/check";
+	public static final String GET_RESET_PASSWORD_TOKEN_VERIFICATION_PAGE = "/user/reset/password/{userToken}";
+	public static final String VERIFY_EMAILID_TO_RESET_PASSWORD = "/user/reset/password/emailid/{emailid}/verify";
+	public static final String RESET_PASSWORD = "/user/reset/password/{password}";
 }

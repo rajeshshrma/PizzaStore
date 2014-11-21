@@ -46,6 +46,43 @@
 
 						}
 
+						$scope.showForgetFormWindows = function() {
+
+							showOption.showLogin = false;
+							showOption.showSignupMsg = false;
+							showOption.showForgetPasswordForm = true;
+						}
+
+						$scope.checkRegisteredEmailID = function() {
+
+							if ($scope.forgetPasswordForm.$invalid) {
+								return;
+							}
+
+							$http(
+									{
+										method : 'POST',
+										url : '/PizzaStore/user/forgetpassword/emailid/'
+												+ $scope.emailid + '/check'
+									})
+									.success(
+											function(data, status, headers,
+													config) {
+												if (data == 'false') {
+													emailStatus.isNotRegistered = true;
+												} else {
+													showOption.showForgetPasswordForm = false;
+													showOption.showForgetPasswordSuccessForm = true;
+												}
+
+											}).error(
+											function(data, status, headers,
+													config) {
+
+											});
+
+						}
+
 						$scope.loginUser = function() {
 
 							if ($scope.loginForm.$invalid) {
@@ -204,16 +241,97 @@
 
 					});
 
+	app
+			.controller(
+					"PasswordResetFormController",
+					function($scope, $http) {
+
+						this.showPwdResetFormOption = showPwdResetFormOption;
+
+						$scope.verifyEmailIDForResetPassword = function() {
+
+							if ($scope.emailVerificationForm.$invalid) {
+								return;
+							}
+
+							$http(
+									{
+										method : 'POST',
+										url : '/PizzaStore/user/reset/password/emailid/'
+												+ $scope.emailid + '/verify/'
+									})
+									.success(
+											function(data, status, headers,
+													config) {
+
+												if (data == 'false') {
+													showPwdResetFormOption.isEmailVerified = false;
+													showPwdResetFormOption.showEmailForm = true;
+													showPwdResetFormOption.showPasswordForm = false;
+												} else {
+													showPwdResetFormOption.isEmailVerified = true;
+													showPwdResetFormOption.showEmailForm = false;
+													showPwdResetFormOption.showPasswordForm = true;
+												}
+
+											}).error(
+											function(data, status, headers,
+													config) {
+											});
+						}
+
+						$scope.resetPassword = function() {
+
+							if ($scope.resetPasswordForm.$invalid) {
+								return;
+							}
+
+							if ($scope.password != $scope.confirmPassword) {
+								showPwdResetFormOption.showConfirmPasswordError = true;
+								return;
+							}
+
+							$http(
+									{
+										method : 'POST',
+										url : '/PizzaStore/user/reset/password/'
+												+ $scope.password
+									})
+									.success(
+											function(data, status, headers,
+													config) {
+
+												if (data == 'false') {
+													showPwdResetFormOption.showEmailForm = false;
+													showPwdResetFormOption.showPasswordForm = true;
+												} else {
+													showPwdResetFormOption.showEmailForm = false;
+													showPwdResetFormOption.showPasswordForm = false;
+													showPwdResetFormOption.showSuccessPasswordResetScreen = true;
+												}
+
+											}).error(
+											function(data, status, headers,
+													config) {
+											});
+						}
+
+					});
+
 	var showOption = {
 		showLogin : true,
 		showSignupMsg : false,
 		showMsg : '...',
+		showForgetPasswordForm : false,
+		showForgetPasswordSuccessForm : false
 	}
 
 	var emailStatus = {
 		isExist : false,
 		isInvalid : false,
-		statusMsg : '...'
+		statusMsg : '...',
+		isNotRegistered : false
+
 	}
 
 	var loginStatus = {
@@ -229,6 +347,14 @@
 		showConfirmPasswordError : false,
 		showAddressForm : false,
 		showSuccessRegistrationScreen : false
+	}
+
+	var showPwdResetFormOption = {
+		showEmailForm : true,
+		isEmailVerified : true,
+		showPasswordForm : false,
+		showConfirmPasswordError : false,
+		showSuccessPasswordResetScreen : false
 	}
 
 })();
