@@ -27,6 +27,7 @@
 			<list>
 				<value>com.online.pizzastore.vo.Product</value>
 				<value>com.online.pizzastore.vo.User</value>
+				<value>com.online.pizzastore.vo.Address</value>
 				<value>com.online.pizzastore.vo.Topping</value>
 				<value>com.online.pizzastore.vo.ToppingOptions</value>
 			</list>
@@ -57,6 +58,34 @@
 			<value>.jsp</value>
 		</property>
 	</bean>
+
+
+	<mvc:resources mapping="/assets/**" location="assets/" />
+
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+		<property name="defaultLocale" value="en" />
+	</bean>
+
+	<bean id="localeChangeInterceptor"
+		class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+		<property name="paramName" value="language" />
+	</bean>
+	
+	<bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" >
+		<property name="interceptors">
+			<list>
+				<ref bean="localeChangeInterceptor" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- Register the message.properties -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="message" />
+	</bean>
+
 
 
 	<bean id="dataDaoImpl" class="com.online.pizzastore.dao.DataDaoImpl" />

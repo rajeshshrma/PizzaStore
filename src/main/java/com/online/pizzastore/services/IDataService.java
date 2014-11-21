@@ -7,7 +7,7 @@ import com.online.pizzastore.vo.Topping;
 import com.online.pizzastore.vo.User;
 
 public interface IDataService {
-	public boolean authenticateUser(User user);
+	public User authenticateUser(String emailid,String password) ;
 
 	public List<Product> findAllProducts();
 
@@ -16,5 +16,16 @@ public interface IDataService {
 	public List<Topping> findToppingsByProductID(int productId);
 	
 	public Topping findToppingByID(int toppingId);
+	
+	public boolean userAlreadyExists(String emailid) ;
+	
+	public void addUser(User user);
 
+	public boolean tokenAlreadyExists(String token);
+	
+	public User findUserByToken(String userToken) ;
+	
+	public void updateUser(User user);
+	
+	public User findUserByEmailID(String emailid);
 }

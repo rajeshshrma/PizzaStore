@@ -18,6 +18,41 @@ USE `pizzastore`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `address`
+--
+
+DROP TABLE IF EXISTS `address`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `address` (
+  `EMAIL_ID` varchar(45) NOT NULL,
+  `ADDRESS1` varchar(100) DEFAULT NULL,
+  `ADDRESS2` varchar(100) DEFAULT NULL,
+  `ADDRESS3` varchar(100) DEFAULT NULL,
+  `PHONE` varchar(11) DEFAULT NULL,
+  `CITY` varchar(20) DEFAULT NULL,
+  `STATE` varchar(20) DEFAULT NULL,
+  `COUNTRY` varchar(20) DEFAULT NULL,
+  `STATUS` varchar(45) DEFAULT NULL,
+  `CREATED_DATE` varchar(45) DEFAULT NULL,
+  `LAST_MODIFIED_DATE` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`EMAIL_ID`),
+  KEY `EMAIL_ID_idx` (`EMAIL_ID`),
+  CONSTRAINT `EMAIL_ID` FOREIGN KEY (`EMAIL_ID`) REFERENCES `user` (`EMAIL_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `address`
+--
+
+LOCK TABLES `address` WRITE;
+/*!40000 ALTER TABLE `address` DISABLE KEYS */;
+INSERT INTO `address` VALUES ('bestrajesh@gmail.com','House No 167','OLD HBC','Jind','9467505544','Jind','Haryana','India',NULL,NULL,NULL);
+/*!40000 ALTER TABLE `address` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `cart`
 --
 
@@ -154,13 +189,18 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
-  `EMAILID` varchar(45) NOT NULL,
-  `PASSWORD` varchar(45) NOT NULL,
-  `FIRST_NAME` varchar(45) NOT NULL,
-  `LAST_NAME` varchar(45) NOT NULL,
-  `PHONE` varchar(10) NOT NULL,
-  `ADDRESS` varchar(45) NOT NULL,
-  PRIMARY KEY (`EMAILID`)
+  `USER_ID` varchar(45) DEFAULT NULL,
+  `PASSWORD` varchar(45) DEFAULT NULL,
+  `FIRST_NAME` varchar(45) DEFAULT NULL,
+  `LAST_NAME` varchar(45) DEFAULT NULL,
+  `STATUS` varchar(20) DEFAULT NULL,
+  `EMAIL_ID` varchar(45) NOT NULL,
+  `USER_TOKEN` varchar(45) DEFAULT NULL,
+  `CREATED_DATE` varchar(45) DEFAULT NULL,
+  `LAST_MODIFIED_DATE` varchar(45) DEFAULT NULL,
+  `TOKEN_EXPIRY_DATE` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`EMAIL_ID`),
+  UNIQUE KEY `USER_ID_UNIQUE` (`USER_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -170,7 +210,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('bestrajesh@gmail.com','raj123','Rajesh','Kumar','9467505544','Jind');
+INSERT INTO `user` VALUES (NULL,'raj123','Rajesh','Kumar','ADDRESS_CREATED','bestrajesh@gmail.com','cTIxx3994363','Thu Nov 20 11:06:08 IST 2014','Thu Nov 20 16:28:01 IST 2014','Thu Nov 20 22:26:17 2014');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -183,4 +223,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-11-12 10:58:01
+-- Dump completed on 2014-11-20 20:38:20
